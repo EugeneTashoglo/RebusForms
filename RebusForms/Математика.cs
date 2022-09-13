@@ -15,11 +15,13 @@ namespace RebusForms
         int n=0;
         string[] answer;
         string[] userAnswers;
+        bool[] correctAnswers;
         public Математика()
         {
             InitializeComponent();
-            answer = new string[]{ "Вершина", "Конус", "Пять"};
+            answer = new string[]{ "Пять", "Конус", "Вершина"};
             userAnswers = new string[answer.Length];
+            correctAnswers = new bool[answer.Length];
         }
         
 
@@ -47,15 +49,15 @@ namespace RebusForms
         {
             n++;
             if (n > 2) return;
-            
+            textBox1.Text = userAnswers[n];
             show(n);
-
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             n--;
             if (n < 0) return;
+            textBox1.Text = userAnswers[n];
             show(n);
         }
 
@@ -72,13 +74,25 @@ namespace RebusForms
 
         private void button4_Click(object sender, EventArgs e)
         {
-           
+            int correctAnswersLenth = 0;
+            for (int i = 0; i < userAnswers.Length; i++) 
+            {
+                
+               
+                bool correct = userAnswers[i] == answer[i];
+                if (correct)
+                {
+                    correctAnswersLenth++;
+                    correctAnswers[i] = correct;
+                }
+            }
 
+            MessageBox.Show((correctAnswersLenth / answer.Length * 100).ToString());
         }
 
         private void textBox1_TextChanged_1(object sender, EventArgs e)
         {
-           
+            userAnswers[n] = textBox1.Text;
         }
     }
 }
